@@ -27,7 +27,7 @@ def cadastrar():
         'tarefa': tarefa,
         'data': data,
         'local': local,
-        'situacao': 'Pendente'
+        'status': 'Pendente'
     }
     lista.append(dicionary)
     system('cls')
@@ -39,7 +39,7 @@ def listar_tarefas():
 Tarefa: {i['tarefa']}
 Data: {i['data']}
 Local: {i['local']}
-Situação: {i['situacao']}
+Status: {i['status']}
 -------------------------------------------''')
 
 def programa():
