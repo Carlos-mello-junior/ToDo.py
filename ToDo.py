@@ -1,6 +1,63 @@
 from os import system
+from time import sleep
 
-lista = []
+todo_list= []
+tarefa = {}
+
+
+
+def data_dividida(data: str):
+    date = list()
+    dia, mes, ano = data.split("/")
+    date.append(int(dia))
+    date.append(int(mes))
+    date.append(int(ano))
+    return date
+
+
+def validar_dia(dia):
+    if dia > 0 and dia <= 31:
+        return True
+    return False
+
+
+def validar_mes(mes):
+    if mes > 0 and mes <= 12:
+        return True
+    return False
+
+
+def validar_ano(ano):
+    if ano > 0 and (ano / 1000) >= 1:
+        return True
+    return False 
+
+
+
+def validar_data(data: str):
+    #função que valida a data por inteiro, exigindo uma data em forma de srting
+    #Retorna valores verdadeiro(True) e falso (False) 
+    data_split = data_dividida(data)
+    dia_valido = validar_dia(data_split[0])
+    mes_valido = validar_mes(data_split[1])
+    ano_valido = validar_ano(data_split[2])
+    if dia_valido == True and mes_valido == True and ano_valido == True:
+        if data_split[2] % 4 == 0:
+            if data_split[1] == 2:
+                if data_split[0] > 0 and data_split[0] <= 29:
+                    return True
+        elif data_split[2] % 4 != 0:
+            if data_split[1] == 2:
+                if data_split[0] > 0 and data_split[0] <= 28:
+                    return True 
+        elif data_split[1] == 1 and data_split[1] == 3 and data_split[1] == 5 and data_split[1] == 7 and data_split[1] == 8 and data_split[1] == 10 and data_split[1] == 12:
+            if data_split[0] > 0 and data_split[0] <= 31:
+                return True
+        elif data_split[1] == 4 and data_split[1] == 6 and data_split[1] == 9 and data_split[1] == 11:
+            if data_split[0] > 0 and data_split[0] <= 30:
+                return True
+    return False
+
 
 
 def menu_principal():
@@ -20,27 +77,32 @@ def menu_principal():
     return escolha
 
 def cadastrar():
-    tarefa = str(input("Qual a tarefa?: "))
-    data = str(input("Quando deve ser feito?: "))
-    local = str(input("Onde será feito?: "))
-    dicionary = {
-        'tarefa': tarefa,
-        'data': data,
-        'local': local,
-        'situacao': 'Pendente'
-    }
-    lista.append(dicionary)
-    system('cls')
-    print("Cadastrado com sucesso!!!!")
+    tarefa = str(input("Tarefa: "))
+    data_inicio = str(input("Data de inicio: "))
+    data_final = str(input("Data de termino: "))
+    local = str(input("local: "))
+    if validar_data(data_inicio) == True and validar_data(data_final) == True:
+        tarefa["Tarefa"] = tarefa
+        tarefa["Data_inicio"] = data_inicio
+        tarefa["Data_final"] = data_final
+        tarefa["local"] = local
+        system("cls")
+        print("Adcionado com sucesso!")
+        sleep(2.5)
+    else:
+        system("cls")
+        print("Data inválida")
+        sleep(2.5)
+
+        
 
 def listar_tarefas():
-    for i in lista:
-        print(f'''
-Tarefa: {i['tarefa']}
-Data: {i['data']}
-Local: {i['local']}
-Situação: {i['situacao']}
--------------------------------------------''')
+    for c in todo_list:
+        print(c["tarefa"])
+        print(c["data_inicio"])
+        print(c["data_final"])
+        print(c["local"])
+
 
 def programa():
     while True:
