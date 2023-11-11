@@ -2,7 +2,7 @@ from os import system
 from time import sleep
 
 todo_list= []
-tarefa = {}
+tarefa = dict()
 
 
 
@@ -46,14 +46,14 @@ def validar_data(data: str):
             if data_split[1] == 2:
                 if data_split[0] > 0 and data_split[0] <= 29:
                     return True
-        elif data_split[2] % 4 != 0:
+        if data_split[2] % 4 != 0:
             if data_split[1] == 2:
                 if data_split[0] > 0 and data_split[0] <= 28:
                     return True 
-        elif data_split[1] == 1 and data_split[1] == 3 and data_split[1] == 5 and data_split[1] == 7 and data_split[1] == 8 and data_split[1] == 10 and data_split[1] == 12:
+        if data_split[1] == 1 or data_split[1] == 3 or data_split[1] == 5 or data_split[1] == 7 or data_split[1] == 8 or data_split[1] == 10 or data_split[1] == 12:
             if data_split[0] > 0 and data_split[0] <= 31:
                 return True
-        elif data_split[1] == 4 and data_split[1] == 6 and data_split[1] == 9 and data_split[1] == 11:
+        if data_split[1] == 4 or data_split[1] == 6 or data_split[1] == 9 or data_split[1] == 11:
             if data_split[0] > 0 and data_split[0] <= 30:
                 return True
     return False
@@ -77,21 +77,19 @@ def menu_principal():
     return escolha
 
 def cadastrar():
-    tarefa = str(input("Tarefa: "))
+    tarefa_in = str(input("Tarefa: "))
     data_inicio = str(input("Data de inicio: "))
     data_final = str(input("Data de termino: "))
     local = str(input("local: "))
     if validar_data(data_inicio) == True and validar_data(data_final) == True:
-        tarefa["Tarefa"] = tarefa
-        tarefa["Data_inicio"] = data_inicio
-        tarefa["Data_final"] = data_final
+        tarefa["tarefa"] = tarefa_in
+        tarefa["data_inicio"] = data_inicio
+        tarefa["data_final"] = data_final
         tarefa["local"] = local
+        todo_list.append(tarefa)
+        tarefa.clear()
         system("cls")
         print("Adcionado com sucesso!")
-        sleep(2.5)
-    else:
-        system("cls")
-        print("Data inválida")
         sleep(2.5)
 
         
