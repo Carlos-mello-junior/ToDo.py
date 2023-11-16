@@ -77,30 +77,31 @@ def menu_principal():
     return escolha
 
 def cadastrar():
-    tarefa_in = str(input("Tarefa: "))
-    data_inicio = str(input("Data de inicio: "))
-    data_final = str(input("Data de termino: "))
+    tarefa_input = str(input("Tarefa: "))
+    data_conclusao = str(input("Data da tarefa: "))
     local = str(input("local: "))
-    if validar_data(data_inicio) == True and validar_data(data_final) == True:
-        tarefa["tarefa"] = tarefa_in
-        tarefa["data_inicio"] = data_inicio
-        tarefa["data_final"] = data_final
+    if validar_data(data_conclusao) == True:
+        tarefa["tarefa"] = tarefa_input
+        tarefa["data_de_conclusao"] = data_conclusao
         tarefa["local"] = local
-        todo_list.append(tarefa)
+        tarefa["status"] = "pendente"
+        todo_list.append(tarefa.copy())
         tarefa.clear()
         system("cls")
         print("Adcionado com sucesso!")
-        sleep(2.5)
+        sleep(0.8)
+    else:
+        system("cls")
+        print("Dados inválidos, tarefa não adcionada.")
+        sleep(0.8)
 
         
 
 def listar_tarefas():
     for c in todo_list:
         print(c["tarefa"])
-        print(c["data_inicio"])
-        print(c["data_final"])
         print(c["local"])
-
+        print(c["status"])
 
 def programa():
     while True:
